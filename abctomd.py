@@ -152,8 +152,12 @@ for n in range(len(dl)):
 
 
 assigns = eecpid.iden(dl,ll)
+print(dl)
+print(ll)
 
-
+cycl = 0
+cych = 0
+cyc = False
 qtr = 0
 qf = False
 elseresolve = False
@@ -164,11 +168,12 @@ filemd.write('```mermaid\ngraph TB\n')
 
 filemd.write('A(begin)\n')
 for n in range(len(dl)):
-    filemd.write(to_str_id(n + 2))
     if assigns[n] == 'q':
+        filemd.write(to_str_id(n + 2))
         filemd.write('{' + dl[n] + '}\n')
         filemd.write(to_str_id(n + 1) + ' -->' + to_str_id(n + 2) + '\n')
     elif assigns[n] == 'else':
+        filemd.write(to_str_id(n + 2))
         filemd.write('[' + dl[n] + ']\n')
         qf = False
         qtr = n
@@ -186,10 +191,17 @@ for n in range(len(dl)):
 
 
     else:
+        filemd.write(to_str_id(n + 2))
         if dl[n] == 'end':
             filemd.write('(' + dl[n] + ')\n')
         elif 'while ' == dl[n][:6] or dl[n][:7] == 'repeat ' or dl[n][:4] == 'for ':
             filemd.write('>' + dl[n] + ']\n')
+            cyc = True
+            for cych in range(n+1,len(dl)):
+                if ll[cych] == ll[n]:
+                    filemd.write(to_str_id(cych + 2) + ' -->' + to_str_id(n + 2) + '\n')
+                    break
+
         else:
             filemd.write('[' + dl[n] + ']\n')
 
