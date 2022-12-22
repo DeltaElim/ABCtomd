@@ -18,7 +18,7 @@ def formatd(dl):
             while not r:
                 if dl[a] != '':
                     if dl[a][len(dl[a])-1:] == ' ':
-                        dl[a] = dl[a][len(dl[a])-1:]
+                        dl[a] = dl[a][:len(dl[a])-1]
                     else:
                         r = True
                 else:

@@ -122,7 +122,7 @@ while filestop == False:
         filestop = True
 
 
-
+print(analysis)
 eecpid.formatd(analysis)
 analysis = eecpid.nospace(analysis)
 depth = 0
